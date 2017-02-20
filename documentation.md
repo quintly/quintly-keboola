@@ -1,0 +1,1 @@
+To get started with this integration you need have a quintly subscription and access to your API credentials (client id and secret). For more details about the quintly packages see https://www.quintly.com and for requesting API access please reach out to support@quintly.com
