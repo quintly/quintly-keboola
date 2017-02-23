@@ -1,0 +1,87 @@
+{
+    "parameters": {
+        "api": {
+            "baseUrl": "https://api.quintly.com/v0.9/",
+            "authentication": {
+                "type": "basic"
+            }
+        },
+        "config": {
+            "id": "quintly",
+            "debug": true,
+            "incrementalOutput": true,
+            "username": "{YOUR USERNAME}",
+            "#password": "{YOUR TOKEN}",
+            "profileids": "{PROFILE IDs}",
+            "range": {
+                "unit": "week",
+                "number": 1,
+                "interval": "daily"
+            },
+            "qqlQuery": "SELECT profileId AS profile, date(time) AS date, fans FROM facebook",
+            "userData": {
+                "extracted": {
+                    "function": "date",
+                    "args": [
+                        "Y-m-d H:i:s",
+                        {
+                            "function": "strtotime",
+                            "args": [
+                                "now"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "http": {
+                "headers": {
+                    "Accept": "application/json"
+                }
+            },
+            "jobs": [{
+                "endpoint": "qql",
+                "dataType": "qql",
+                "dataField": "data",
+                "params": {
+                    "qqlQuery": {
+                        "attr": "qqlQuery"
+                    },
+                    "startTime": {
+                        "function": "date",
+                        "args": [
+                            "Y-m-d",
+                            {
+                                "function": "strtotime",
+                                "args": [{
+                                    "function": "concat",
+                                    "args": [
+                                        "-",
+                                        {
+                                            "attr": "range.number"
+                                        },
+                                        " ",
+                                        {
+                                            "attr": "range.unit"
+                                        }
+                                    ]
+                                }]
+                            }
+                        ]
+                    },
+                    "endTime": {
+                        "function": "date",
+                        "args": [
+                            "Y-m-d"
+                        ]
+                    },
+                    "interval": {
+                        "attr": "range.interval"
+                    },
+                    "profileIds": {
+                        "attr": "profileids"
+                    }
+                }
+            }]
+        }
+    }
+}

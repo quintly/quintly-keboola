@@ -1,0 +1,76 @@
+{
+    "title": "Parameters",
+    "type": "object",
+    "required": [
+        "username",
+        "#password",
+        "profileids"
+    ],
+    "properties": {
+        "username": {
+            "title": "Client Id",
+            "type": "string",
+            "minLength": 1,
+            "default": "your_client_id"
+        },
+        "#password": {
+            "title": "API Secret",
+            "type": "string",
+            "format": "password",
+            "minLength": 1,
+            "default": "your_api_token"
+        },
+        "profileids": {
+            "title": "Profile Ids",
+            "type": "string",
+            "minLength": 1,
+            "default": "00000"
+        },
+        "qqlQuery": {
+            "title": "QQL query",
+            "type": "string",
+            "minLength": 1,
+            "default": "SELECT profileId AS profile, date(time) AS date, fans FROM facebook"
+        },
+        "range": {
+            "title": "Date range",
+            "type": "object",
+            "properties": {
+                "number": {
+                    "title": "Range value",
+                    "type": "integer",
+                    "default": 1
+                },
+                "range": {
+                    "title": "Range unit",
+                    "type": "string",
+                    "enum": [
+                        "day",
+                        "week",
+                        "month"
+                    ],
+                    "default": "week"
+                },
+                "interval": {
+                    "title": "interval unit",
+                    "type": "string",
+                    "enum": [
+                        "daily",
+                        "weekly",
+                        "monthly"
+                    ],
+                    "default": "daily"
+                }
+            }
+        },
+        "incrementalOutput": {
+            "title": "Incremental Output",
+            "type": "boolean",
+            "enum": [
+                true,
+                false
+            ],
+            "default": true
+        }
+    }
+}
